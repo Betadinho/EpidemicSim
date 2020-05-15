@@ -1,0 +1,64 @@
+body {
+	background-color: black;
+	overflow: hidden;
+	font-family: Calibri;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+}
+
+.row {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.row::after {
+	clear: both;
+	content: "";
+	height: auto;
+}
+
+canvas {
+	height: 98vh;
+	width: 70vw;
+	border: 2px solid white;
+}
+
+.hud {
+	display: flex;
+	flex-wrap: wrap;
+	color: white;
+
+	height: 98vh;
+	width: 20vw;
+	justify-content: center;
+}
+
+input {
+	display: flex;
+	height: 3rem;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	background-color: red;
+	font-weight: bolder;
+	border: none;
+	margin: 3px;
+}
+
+label {
+	display: flex;
+	height: 3rem;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	background-color: red;
+	font-weight: bolder;
+	border: none;
+	margin: 3px;
+}

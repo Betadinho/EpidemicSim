@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Sim | TEST</title>
+		<link rel="stylesheet" href="css/master.css">
+	</head>
+	<body>
+		<div class="container">
+			<canvas id="canvas" width="1200" height="1200"></canvas>
+			<div class="hud">
+				<div class="row"><h3> <u>Controls</u> </h3></div>
+				<div class="row">
+					<input class="hud-element" id="start" type="button" name="start" value="START" onclick="startSim()">
+
+					<input class="hud-element" id="pause" type="button" name="pause" value="PAUSE" onclick="pauseSim()">
+
+					<input class="hud-element" id="stop" type="button" name="stop" value="STOP" onclick="stopSim()">
+
+					<input class="hud-element" id="clear" type="button" name="clear" value="CLEAR" onclick="clearCanvas()">
+				</div>
+
+				<div class="row">
+					<label for="population" class="hud-element">Population:
+						<input class="hud-element" id="population" type="number" name="population" value="10" min="2" max="1000">
+					</label>
+				</div>
+
+				<div class="row">
+					<label for="timeout" class="hud-element">Timeout (mins):
+						<input class="hud-element" id="timeout" type="number" name="timeout" value="0">
+					</label>
+
+					<label for="infected" class="hud-element">Infected (%):
+						<input class="hud-element" id="infected" type="number" name="infected" value="1" min="0.01" max="100">
+					</label>
+				</div>
+			</div>
+		</div>
+		<script src="js/sim.js"></script>
+	</body>
+</html>
