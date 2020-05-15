@@ -125,7 +125,7 @@ class Person {
 	}
 
 	changeDirectionRandomly() {
-		switch (getRandomInt(0, 3)) {
+		switch (getRandomInt(0, 4)) {
 			case 0:
 				this.direction = 'r';
 				break;
@@ -262,8 +262,8 @@ function testrun(population, timeout) {
 	for(e of population) {
 		drawRect2(e);
 
-		//Change directio every 1 in 14 times
-		if (getRandomInt(1, 14) == 4) {
+		//Change direction every 1 in x times
+		if (getRandomInt(1, 8) == 4) {
 			e.changeDirectionRandomly();
 		}
 		e.move();
