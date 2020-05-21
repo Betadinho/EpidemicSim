@@ -211,7 +211,7 @@ function pauseSim() {
 		clearInterval(sim);
 	} else {
 		console.log("Sim unpaused");
-		startSim();s
+		startSim();
 	}
 }
 
