@@ -9,7 +9,7 @@ let timeRunning = 0;
 let percentageInfected = 0;
 let simCache;
 let sim;
-/* Old Test code
+/* Old test code
 let testFigure = {
 	color: "yellow",
 	width: 10,
@@ -52,9 +52,13 @@ let group = [testFigure, testFigure2];
 */
 
 
-//Class Definitions // TODO: Move to seperate file (possibly?)
+//Class Definitions
+/*TODO:
+	Move to seperate file (possibly?)
+
+*/
 class Person {
-	constructor(status = "well", color="yellow") {
+	constructor(status = "healthy", color="yellow") {
 		this.color = color;
 		this.status = status;
 		this.width = 10;
