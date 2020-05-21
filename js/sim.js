@@ -208,7 +208,7 @@ function pauseSim() {
 		console.log("Sim paused");
 		running = false;
 		paused = true;
-		clearTimeout(sim);
+		clearInterval(sim);
 	} else {
 		console.log("Sim unpaused");
 		startSim();s
@@ -220,7 +220,7 @@ function stopSim() {
 	running = false;
 	paused = false;
 	timeRunning = 0;
-	clearTimeout(sim);
+	clearInterval(sim);
 }
 
 function populateSim(num_of_people, percentageInfected) {
