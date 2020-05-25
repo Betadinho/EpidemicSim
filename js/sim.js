@@ -16,15 +16,15 @@ let testFigure = {
 	height: 10,
 	pos_x: 0,
 	pos_y: 0,
-	speed: 20,
+	velocity: 20,
 	move: function() {
-		if((this.pos_x + this.speed) > canvas.width) {
+		if((this.pos_x + this.velocity) > canvas.width) {
 			this.pos_y += 10;
 			this.pos_x = 0;
 		} else if((this.pos_y + 1) > canvas.height) {
 			this.pos_y = 0;
 		} else {
-			this.pos_x += this.speed;
+			this.pos_x += this.;
 		}
 	}
 };
@@ -35,15 +35,15 @@ let testFigure2 = {
 	height: 10,
 	pos_x: 0,
 	pos_y: 0,
-	speed: 50,
+	velocity: 50,
 	move: function() {
-		if((this.pos_x + this.speed) > canvas.width) {
+		if((this.pos_x + this.velocity) > canvas.width) {
 			this.pos_y += 15;
 			this.pos_x = 0;
 		} else if((this.pos_y + 1) > canvas.height) {
 			this.pos_y = 0;
 		} else {
-			this.pos_x += this.speed;
+			this.pos_x += this.velocity;
 		}
 	}
 };
@@ -63,32 +63,45 @@ class Person {
 		this.status = status;
 		this.width = 10;
 		this.height = 10;
-		this.pos_x = getRandomInt(0, canvas.width - 1);
-		this.pos_y = getRandomInt(0, canvas.height - 1);
-		this.speed = 5;
+		this.aw = 10;
+		this.pos = [getRandomInt(0, canvas.width - 1), getRandomInt(0, canvas.height - 1)];
+		this.velocity = 5;
 		this.direction = 'r';
+		this.area = [
+			[this.pos[0] - this.aw, this.pos[1]], //left
+			[this.pos[0] + this.aw, this.pos[1]], //right
+			[this.pos[0], this.pos[1] + this.aw], //above
+			[this.pos[0], this.pos[1] - this.aw], //below
+			[this.pos[0] - this.aw, this.pos[1] - this.aw], //top_left corner
+			[this.pos[0] + this.aw, this.pos[1] - this.aw], //top_right corner
+			[this.pos[0] - this.aw, this.pos[1] + this.aw], //bottom_left corner
+			[this.pos[0] + this.aw, this.pos[1] + this.aw], //bottom right corner
+		];
 	}
 
 	//Methods
-
 	move() {
 		switch (this.direction) {
 			case 'r':
 				this.moveRight();
+				this.updateArea();
 				break;
 			case 'd':
 				this.moveDown();
+				this.updateArea();
 				break;
 			case 'l':
 				this.moveLeft();
+				this.updateArea();
 				break;
 			case 'u':
 				this.moveUp();
+				this.updateArea();
 		}
 	}
 
 	moveRight() {
-		if((this.pos_x + this.width) > canvas.width) { //check if move places self outside of canvas width
+		if((this.pos[0] + this.width) > canvas.width) { //check if move places self outside of canvas width
 			//Move to the beginning of next line istead
 			this.moveLeft();
 			this.direction = 'l';
@@ -96,36 +109,49 @@ class Person {
 			//Move to the top instead
 			this.pos_y = 0;
 		}
-		*/ else { //otherwise continue move
-			this.pos_x += this.speed;
+		*/ else { //continue move on x axis
+			this.pos[0] += this.velocity;
 		}
 	}
 
 	moveLeft() {
-		if((this.pos_x - this.width) < 0) { //check if move places self outside of canvas width
+		if((this.pos[0] - this.width) < 0) { //check if move places self outside of canvas width
 			this.moveRight();
 			this.direction = 'r';
-		} else {
-			this.pos_x -= this.speed;
+		} else { //continue move on x axis
+			this.pos[0] -= this.velocity;
 		}
 	}
 
 	moveUp() {
-		if((this.pos_y - this.height) < 0) { //check if move places self outside of canvas height
+		if((this.pos[1] - this.height) < 0) { //check if move places self outside of canvas height
 			this.moveDown();
 			this.direction = 'd';
-		} else {
-			this.pos_y -= this.speed;
+		} else { //continue move on y axis
+			this.pos[1] -= this.velocity;
 		}
 	}
 
 	moveDown() {
-		if((this.pos_y + this.height) > canvas.height) { //check if move places self outside of canvas height
+		if((this.pos[1] + this.height) > canvas.height) { //check if move places self outside of canvas height
 			this.moveUp();
 			this.direction = 'u';
-		} else {
-			this.pos_y += this.speed;
+		} else { //continue move on y axis
+			this.pos[1] += this.velocity;
 		}
+	}
+
+	updateArea() {
+		this.area = [
+			[this.pos[0] - this.aw, this.pos[1]], //left
+			[this.pos[0] + this.aw, this.pos[1]], //right
+			[this.pos[0], this.pos[1] + this.aw], //above
+			[this.pos[0], this.pos[1] - this.aw], //below
+			[this.pos[0] - this.aw, this.pos[1] - this.aw], //top_left corner
+			[this.pos[0] + this.aw, this.pos[1] - this.aw], //top_right corner
+			[this.pos[0] - this.aw, this.pos[1] + this.aw], //bottom_left corner
+			[this.pos[0] + this.aw, this.pos[1] + this.aw], //bottom right corner
+		];
 	}
 
 	changeDirectionRandomly() {
@@ -146,13 +172,13 @@ class Person {
 
 	// Getter
 	getPosition() {
-		return [this.pos_x, this.pos_y];
+		return [this.pos[0], this.pos[1]];
 	}
 
 	//Setter
 	setPosition(x,y) {
-		this.pos_x = x;
-		this.pos_y = y;
+		this.pos[0] = x;
+		this.pos[1] = y;
 	}
 }
 
@@ -189,14 +215,20 @@ function getRandomInt(min, max) {
 function drawRect(color, pos_x, pos_y, width, height) {
 	ctx.fillStyle = color;
 	ctx.fillRect(pos_x, pos_y, width, height);
-
 }
 
-//Does the same as draw rect but takes an object instead ob multiple attributes
+//Does the same as draw rect but takes an object instead of multiple attributes
 function drawRect2(figure) {
 		ctx.fillStyle = figure.color;
-		ctx.fillRect(figure.pos_x, figure.pos_y, figure.width, figure.height);
+		ctx.fillRect(figure.pos[0], figure.pos[1], figure.width, figure.height);
+
+		ctx.strokeStyle = "green";
+		ctx.strokeRect(figure.area[4][0], figure.area[4][1], 30, 30);
 		//requestAnimationFrame(drawRect2);
+}
+
+function drawRectArea() {
+	console.log("test");
 }
 
 function clearCanvas() {
@@ -264,13 +296,14 @@ function startSim() {
 function testrun(population, timeout) {
 	clearCanvas();
 	for(e of population) {
-		drawRect2(e);
 
 		//Change direction every 1 in x times
 		if (getRandomInt(1, 8) == 4) {
 			e.changeDirectionRandomly();
 		}
 		e.move();
+		console.log(e.area);
+		drawRect2(e);
 	}
 
 	simCache.setCache(population, timeRunning);
