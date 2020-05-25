@@ -182,6 +182,12 @@ class Person {
 	}
 }
 
+
+
+/* Cache:
+	Object to construct a snapshot of current sim to be saved and loaded from
+	Currently used for pausing and un-pausing sim runs
+*/
 class Cache {
 	constructor(inputArr = [], t) {
 			this.cacheArr = inputArr;
